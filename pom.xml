@@ -16,6 +16,7 @@
     <modules>
         <!-- 框架包 -->
         <module>features-9-1</module>
+        <module>features-9-2</module>
     </modules>
 
     <properties>

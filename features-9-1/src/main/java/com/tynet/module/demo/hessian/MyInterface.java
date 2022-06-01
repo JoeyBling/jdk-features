@@ -1,4 +1,4 @@
-package com.tynet;
+package com.tynet.module.demo.hessian;
 
 /**
  * 自定义接口
