@@ -5,13 +5,13 @@ package com.tynet.module.demo.hessian;
  *
  * @author Created by 思伟 on 2022/5/31
  */
-@Deprecated(forRemoval = true)
+@Deprecated
 public interface MyInterface {
 
     /**
-     * 初始化 <p>私有接口方法
+     * 初始化
      */
-    private void init() {
+    default void init() {
         System.out.println("初始化");
     }
 

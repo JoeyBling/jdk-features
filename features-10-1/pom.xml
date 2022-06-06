@@ -9,12 +9,11 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>features-9-1</artifactId>
+    <artifactId>features-10-1</artifactId>
 
     <!-- 项目属性 -->
     <properties>
-        <!-- JDK9后采用新版本命名方案 - 因此，版本号不再以 1.x 开头 -->
-        <java.version>9</java.version>
+        <java.version>10</java.version>
     </properties>
 
 </project>

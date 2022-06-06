@@ -17,6 +17,8 @@
         <!-- 框架包 -->
         <module>features-9-1</module>
         <module>features-9-2</module>
+        <module>features-9-release</module>
+        <module>features-10-1</module>
     </modules>
 
     <properties>
@@ -24,6 +26,8 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <!-- supported since Java9 -->
+        <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>

@@ -4,6 +4,7 @@ import com.tynet.base.BaseTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -20,6 +21,8 @@ public class SimpleTest extends BaseTest {
     public void baseTest() {
         // Stream API
         logger.debug("{}", Stream.ofNullable(null));
+
+        Optional.ofNullable(null).stream().forEach(System.out::println);
 
         // 集合工厂方法 <p>不可变实例
         final List<Integer> list = List.of(1, 2, 3, 10, 11, 4, 5, 6);
