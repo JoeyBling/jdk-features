@@ -29,6 +29,8 @@
         <!-- supported since Java9 -->
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 保留有意义的参数名：https://stackoverflow.com/q/64699000/8470159 -->
+        <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -204,13 +206,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                        <!-- 保留有意义的参数名：https://stackoverflow.com/q/64699000/8470159 -->
-                        <parameters>true</parameters>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <!-- 源码 -->
