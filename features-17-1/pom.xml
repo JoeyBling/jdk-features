@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.tynet.saas</groupId>
+        <artifactId>features-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>features-17-1</artifactId>
+
+    <!-- 项目属性 -->
+    <properties>
+        <java.version>17</java.version>
+        <!-- 仅仅是测试 -->
+        <maven.test.skip>false</maven.test.skip>
+        <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+        <!-- 启用预览语言功能 -->
+        <maven.compiler.enablePreview>true</maven.compiler.enablePreview>
+        <jvm.enable-preview>--enable-preview</jvm.enable-preview>
+    </properties>
+
+    <!-- 构建管理 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgs>
+                        <arg>-Xlint:preview</arg>
+                        <arg>-Xlint:unchecked,deprecation</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>${jvm.enable-preview}</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

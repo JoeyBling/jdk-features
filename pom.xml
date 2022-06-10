@@ -19,6 +19,12 @@
         <module>features-9-2</module>
         <module>features-9-release</module>
         <module>features-10-1</module>
+        <module>features-11-1</module>
+        <module>features-12-1</module>
+        <module>features-14-1</module>
+        <module>features-15-1</module>
+        <module>features-16-1</module>
+        <module>features-17-1</module>
     </modules>
 
     <properties>
