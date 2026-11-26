@@ -6,7 +6,6 @@
     <groupId>com.tynet.saas</groupId>
     <artifactId>features-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <!--<version>1.0.0.RELEASE</version>-->
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
@@ -15,16 +14,16 @@
 
     <modules>
         <!-- 框架包 -->
-        <module>features-9-1</module>
-        <module>features-9-2</module>
+        <module>features-9-jpms-library</module>
+        <module>features-9-jpms-consumer</module>
         <module>features-9-release</module>
-        <module>features-10-1</module>
-        <module>features-11-1</module>
-        <module>features-12-1</module>
-        <module>features-14-1</module>
-        <module>features-15-1</module>
-        <module>features-16-1</module>
-        <module>features-17-1</module>
+        <module>features-10</module>
+        <module>features-11</module>
+        <module>features-12</module>
+        <module>features-14</module>
+        <module>features-15</module>
+        <module>features-16</module>
+        <module>features-17</module>
     </modules>
 
     <properties>
@@ -32,20 +31,24 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <!-- supported since Java9 -->
-        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <!-- supported since Java 9 -->
+        <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 保留有意义的参数名：https://stackoverflow.com/q/64699000/8470159 -->
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven.source.attach>true</maven.source.attach>
         <!-- 跳过测试 -->
         <maven.test.skip>true</maven.test.skip>
+        <!-- 默认跳过本地安装 -->
+        <maven.install.skip>true</maven.install.skip>
+        <!-- 插件配置 -->
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
 
         <!-- main version setting -->
-        <lombok.version>1.18.24</lombok.version>
-        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <lombok.version>1.18.42</lombok.version>
+        <junit-jupiter.version>5.9.0</junit-jupiter.version>
         <slf4j.version>1.7.36</slf4j.version>
         <logback.version>1.2.11</logback.version>
         <log4j2.version>2.17.2</log4j2.version>
@@ -54,22 +57,19 @@
 
 
         <!-- common tools version -->
+        <jetbrains-annotations.version>26.1.0</jetbrains-annotations.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
-
-        <!-- other tools version -->
+        <fastjson2.version>2.0.66</fastjson2.version>
 
     </properties>
 
     <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>
-            <!-- 从基础服务导入依赖关系管理，不包括插件(优先级设为最高) -->
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>base-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit</groupId>
@@ -128,6 +128,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
+            <version>${jetbrains-annotations.version}</version>
         </dependency>
         <!-- apache 工具包 -->
         <dependency>
@@ -139,19 +140,7 @@
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
             <artifactId>fastjson2-extension</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- 加密工具类 -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
+            <version>${fastjson2.version}</version>
             <optional>true</optional>
         </dependency>
         <!-- slf4j - 嵌入式组件仅依赖于此 -->
@@ -205,7 +194,7 @@
 
     <!-- 构建管理 -->
     <build>
-        <defaultGoal>install</defaultGoal>
+        <defaultGoal>package</defaultGoal>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -218,9 +207,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>${maven-source-plugin.version}</version>
-                    <configuration>
-                        <attach>true</attach>
-                    </configuration>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -248,15 +234,31 @@
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
             <plugin>
-                <!-- https://maven.apache.org/surefire/maven-surefire-plugin/examples/skipping-tests.html -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <!-- 跳过测试阶段或者使用 `mvn clean package -Dmaven.test.skip=true` -->
-                    <skipTests>${maven.test.skip}</skipTests>
-                </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>jdk-21</id>
+            <activation>
+                <jdk>[21,)</jdk>
+            </activation>
+            <modules>
+                <module>features-21</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>jdk-25</id>
+            <activation>
+                <jdk>[25,)</jdk>
+            </activation>
+            <modules>
+                <module>features-25</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>
